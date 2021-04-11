@@ -1,0 +1,59 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="container-fluid">
+    <div class="form-group">
+        <h1>{{ title | uppercase }}</h1>
+        <div formArrayName="events">
+            <div [formGroupName]="i" class="mt-5" *ngFor="let event of events.controls; let i=index">
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" id="name" class="form-control" formControlName="name"
+                            placeholder="Event Name"
+                            [ngClass]="{'is-invalid': submitted && event.controls.name.errors }" />
+                        <div *ngIf="event.controls.name.invalid && (event.controls.name.dirty || event.controls.name.touched || submitted)"
+                            class="invalid-msg">
+                            <span *ngIf="event.controls.name.errors?.required">required</span>
+                            <span *ngIf="event.controls.name.errors?.maxlength">max 15 characters</span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control" formControlName="des" placeholder="Event Description"
+                            [ngClass]="{'is-invalid': submitted && event.controls.des.errors }" />
+                        <div *ngIf="event.controls.des.invalid && (event.controls.des.dirty || event.controls.des.touched || submitted)"
+                            class="invalid-msg">
+                            <span *ngIf="event.controls.des.errors?.required">required</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" formControlName="st" placeholder="Phone Number"
+                            [ngClass]="{'is-invalid': submitted && event.controls.st.errors }" />
+                        <div *ngIf="event.controls.st.invalid && (event.controls.st.dirty || event.controls.st.touched || submitted)"
+                            class="invalid-msg">
+                            <span *ngIf="event.controls.st.errors?.required">required</span>
+                            <span *ngIf="event.controls.st.errors?.pattern">Please enter valid 10 digit number</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control" formControlName="ed" placeholder="Email Address"
+                            [ngClass]="{'is-invalid': submitted && event.controls.ed.errors }" />
+                        <div *ngIf="event.controls.ed.invalid && (event.controls.ed.dirty || event.controls.ed.touched || submitted)"
+                            class="invalid-msg">
+                            <span *ngIf="event.controls.ed.errors?.required">required</span>
+                            <span *ngIf="event.controls.ed.errors?.pattern">Please Enter Valid Email Address</span>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-danger" *ngIf="events.controls.length > 1"
+                            (click)="deleteEvents(i)">X</button>
+                    </div>
+                    <div class="col-1">
+                        <button class="btn btn-primary" [hidden]="events.controls.length - 1  > i"
+                            (click)="addEvents(i)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary mt-5" type="submit">Submit</button>
+    </div>
+
+</form>

@@ -1,0 +1,16 @@
+h1 {
+    color: blueviolet;
+    text-align: center;
+}
+
+.invalid-msg span {
+    color:red;
+    font-size: small;
+    font-style: italic;
+    margin-left: 3px;
+}
+
+.form-design {
+    border: 1px solid black;
+    padding: 15px;
+}
